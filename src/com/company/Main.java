@@ -9,7 +9,7 @@ public class Main {
     //Main Method Starts
     public static void main(String[] args) {
         String plainText = "We have a meeting at nine oclock";
-        String key = "hillkywrd";
+        String key = "xiwgmbxzy";
 
         if (isKeyValid(plainText, key)) {
             System.out.println("Plain Text: " + plainText);
