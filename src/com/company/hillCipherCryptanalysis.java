@@ -2,86 +2,59 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Main {
+class hillCipherCryptanalysis {
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
     //................................................................................................................................................................................................
     //Main Method Starts
     public static void main(String[] args) {
-        String plainText = "We have a meeting at nine oclock";
-        String key = "xiwgmbxzy";
+        String knownPartOfPlainText = "We have a me";
+        String knownPartOfCipherText = "pjgkonike";
 
-        if (isKeyValid(plainText, key)) {
-            System.out.println("Plain Text: " + plainText);
-            System.out.println("Hill Cipher Encryption Starts...");
-            System.out.println("Encrypted Text: " + encrypt(plainText, key));
-            System.out.println("Hill Cipher Decryption Starts...");
-            System.out.println("Decrypted Text: " + decrypt(multiplyMatrices(convertTextStringToMatrix(plainText, key), convertKeyStringToMatrix(key)), key));
-        } else {
-            System.out.println("Your key is not valid, please try another one...");
-        }
-    }
+        ArrayList<ArrayList<Double>> dividerFromMod26MatrixArrayList = new ArrayList<>();
+        ArrayList<Double> dividerFromMod26VectorArrayList = new ArrayList<>();
 
-    //................................................................................................................................................................................................
-    //Encrypt Method Starts, Encrypts PlainText to CipherText
-    private static String encrypt(String plainText, String key) {
-        return convertMatrixToTextString(findMod26OfMatrix(multiplyMatrices(convertTextStringToMatrix(plainText, key), convertKeyStringToMatrix(key))));
-    }
+        dividerFromMod26VectorArrayList.add(26.0);
+        dividerFromMod26VectorArrayList.add(15.0);
+        dividerFromMod26VectorArrayList.add(25.0);
+        dividerFromMod26MatrixArrayList.add(dividerFromMod26VectorArrayList);
+        dividerFromMod26VectorArrayList = new ArrayList<>();
 
-    //................................................................................................................................................................................................
-    //CreateKeyMatrix Method Starts, Converts Key to Matrix
-    private static ArrayList<ArrayList<Double>> convertKeyStringToMatrix(String key) {
-        if (Math.sqrt(key.length()) % 1 == 0) {
-            ArrayList<ArrayList<Double>> keyMatrixArrayList = new ArrayList<>();
-            ArrayList<Double> keyVectorArrayList = new ArrayList<>();
+        dividerFromMod26VectorArrayList.add(8.0);
+        dividerFromMod26VectorArrayList.add(13.0);
+        dividerFromMod26VectorArrayList.add(4.0);
+        dividerFromMod26MatrixArrayList.add(dividerFromMod26VectorArrayList);
+        dividerFromMod26VectorArrayList = new ArrayList<>();
 
-            int keySquareMatrixDimension = (int) Math.sqrt(key.length());
+        dividerFromMod26VectorArrayList.add(6.0);
+        dividerFromMod26VectorArrayList.add(9.0);
+        dividerFromMod26VectorArrayList.add(4.0);
+        dividerFromMod26MatrixArrayList.add(dividerFromMod26VectorArrayList);
 
-            for (int firstCounter = 0; firstCounter < keySquareMatrixDimension; firstCounter = firstCounter + 1) {
-                for (int secondCounter = 0; secondCounter < keySquareMatrixDimension; secondCounter = secondCounter + 1) {
-                    keyVectorArrayList.add((double) alphabet.indexOf(key.charAt(0)));
-                    key = key.substring(1);
-                }
-                keyMatrixArrayList.add(keyVectorArrayList);
-                keyVectorArrayList = new ArrayList<>();
+        ArrayList<ArrayList<Double>> cryptAnalysisKeyMatrixArrayLis = multiplyMatrices(invertMatrix(convertTextStringToMatrix(knownPartOfPlainText)), multiplyWithDividerAndSumWithRemainder(convertTextStringToMatrix(knownPartOfCipherText), dividerFromMod26MatrixArrayList));
+
+        for (int firstCounter = 0; firstCounter < cryptAnalysisKeyMatrixArrayLis.size(); firstCounter = firstCounter + 1) {
+            for (int secondCounter = 0; secondCounter < cryptAnalysisKeyMatrixArrayLis.get(firstCounter).size(); secondCounter = secondCounter + 1) {
+                cryptAnalysisKeyMatrixArrayLis.get(firstCounter).set(secondCounter, round(cryptAnalysisKeyMatrixArrayLis.get(firstCounter).get(secondCounter), 0));
             }
-            return keyMatrixArrayList;
-        } else {
-            System.out.println("Your key is not able to create a square matrix, please enter key with valid key length.");
-            return null;
         }
-    }
 
-    //................................................................................................................................................................................................
-    //Checks If Key Is Valid
-    private static Boolean isKeyValid(String plainText, String key) {
-        plainText = plainText.toLowerCase();
-        plainText = plainText.replaceAll(" ", "");
-
-        return decrypt(multiplyMatrices(convertTextStringToMatrix(plainText, key), convertKeyStringToMatrix(key)), key).contains(plainText);
+        System.out.println(convertMatrixToTextString(findMod26OfMatrix(cryptAnalysisKeyMatrixArrayLis)));
     }
 
     //................................................................................................................................................................................................
     //CreatePlainTextMatrix Method Starts, Converts Plain Text to Matrix
-    private static ArrayList<ArrayList<Double>> convertTextStringToMatrix(String text, String key) {
+    private static ArrayList<ArrayList<Double>> convertTextStringToMatrix(String text) {
         text = text.toLowerCase();
         text = text.replaceAll(" ", "");
 
         ArrayList<Double> textVectorArrayList = new ArrayList<>();
         ArrayList<ArrayList<Double>> textMatrixArrayList = new ArrayList<>();
 
-        int keySquareMatrixDimension = (int) Math.sqrt(key.length());
-        int plainTextLength = text.length();
+        int plainTextLength = (int) Math.sqrt(text.length());
 
-        if (plainTextLength % keySquareMatrixDimension != 0) {
-            for (int firstCounter = 0; firstCounter < keySquareMatrixDimension - (plainTextLength % keySquareMatrixDimension); firstCounter = firstCounter + 1) {
-                text = text + "a";
-            }
-            plainTextLength = text.length();
-        }
-
-        for (int firstCounter = 0; firstCounter < plainTextLength / keySquareMatrixDimension; firstCounter = firstCounter + 1) {
-            for (int secondCounter = 0; secondCounter < keySquareMatrixDimension; secondCounter = secondCounter + 1) {
+        for (int firstCounter = 0; firstCounter < plainTextLength; firstCounter = firstCounter + 1) {
+            for (int secondCounter = 0; secondCounter < plainTextLength; secondCounter = secondCounter + 1) {
                 textVectorArrayList.add((double) alphabet.indexOf(text.charAt(0)));
                 text = text.substring(1);
             }
@@ -136,19 +109,16 @@ public class Main {
             multiplicationMatrixArrayList.add(multiplicationVectorArrayList);
             multiplicationVectorArrayList = new ArrayList<>();
         }
+
         return multiplicationMatrixArrayList;
     }
 
     //................................................................................................................................................................................................
     //FindMod26Matrix Method Starts, Finds All Mod 26 of All Elements of Matrix
-    private static ArrayList<ArrayList<Double>> findMod26OfMatrix(ArrayList<ArrayList<Double>> matrixArrayList) {
+    private static ArrayList<ArrayList<Double>> multiplyWithDividerAndSumWithRemainder(ArrayList<ArrayList<Double>> matrixArrayList, ArrayList<ArrayList<Double>> dividerFromMod26MatrixArrayList) {
         for (int firstCounter = 0; firstCounter < matrixArrayList.size(); firstCounter = firstCounter + 1) {
             for (int secondCounter = 0; secondCounter < matrixArrayList.get(firstCounter).size(); secondCounter = secondCounter + 1) {
-                if (matrixArrayList.get(firstCounter).get(secondCounter) % 26 < 0) {
-                    matrixArrayList.get(firstCounter).set(secondCounter, matrixArrayList.get(firstCounter).get(secondCounter) % 26 + 26);
-                } else {
-                    matrixArrayList.get(firstCounter).set(secondCounter, matrixArrayList.get(firstCounter).get(secondCounter) % 26);
-                }
+                matrixArrayList.get(firstCounter).set(secondCounter, (matrixArrayList.get(firstCounter).get(secondCounter)) + dividerFromMod26MatrixArrayList.get(firstCounter).get(secondCounter) * 26);
             }
         }
         return matrixArrayList;
@@ -172,65 +142,18 @@ public class Main {
     }
 
     //................................................................................................................................................................................................
-    //Decrypt Method Starts, Decrypts CipherText to PlainText
-    private static String decrypt(ArrayList<ArrayList<Double>> cipherTextMatrixArrayList, String key) {
-        String plainText;
-
-        double[][] keyMatrixArray = new double[convertKeyStringToMatrix(key).size()][convertKeyStringToMatrix(key).size()];
-        ArrayList<ArrayList<Double>> invertedKeyMatrixArrayList = new ArrayList<>();
-        ArrayList<Double> invertedKeyVectorArrayList = new ArrayList<>();
-
-        ArrayList<Double> plaintTextVectorArrayList = new ArrayList<>();
-        ArrayList<ArrayList<Double>> plaintTextMatrixArrayList = new ArrayList<>();
-
-        for (int firstCounter = 0; firstCounter < convertKeyStringToMatrix(key).size(); firstCounter++) {
-            for (int secondCounter = 0; secondCounter < convertKeyStringToMatrix(key).size(); secondCounter++) {
-                keyMatrixArray[firstCounter][secondCounter] = convertKeyStringToMatrix(key).get(firstCounter).get(secondCounter);
-            }
-        }
-
-        double[][] invertedKeyMatrixArray = invertMatrix(keyMatrixArray);
-
-        for (int firstCounter = 0; firstCounter < invertedKeyMatrixArray.length; firstCounter++) {
-            for (int secondCounter = 0; secondCounter < invertedKeyMatrixArray.length; ++secondCounter) {
-                invertedKeyVectorArrayList.add(round(invertedKeyMatrixArray[firstCounter][secondCounter], 6));
-            }
-            invertedKeyMatrixArrayList.add(invertedKeyVectorArrayList);
-            invertedKeyVectorArrayList = new ArrayList<>();
-        }
-
-        for (int firstCounter = 0; firstCounter < findMod26OfMatrix(multiplyMatrices(cipherTextMatrixArrayList, findMod26OfMatrix(invertedKeyMatrixArrayList))).size(); firstCounter = firstCounter + 1) {
-            for (int secondCounter = 0; secondCounter < findMod26OfMatrix(multiplyMatrices(cipherTextMatrixArrayList, findMod26OfMatrix(invertedKeyMatrixArrayList))).get(firstCounter).size(); secondCounter = secondCounter + 1) {
-                if ((int) round(findMod26OfMatrix(multiplyMatrices(cipherTextMatrixArrayList, findMod26OfMatrix(invertedKeyMatrixArrayList))).get(firstCounter).get(secondCounter), 0) == 26) {
-                    plaintTextVectorArrayList.add(0.0);
-                } else {
-                    plaintTextVectorArrayList.add(round(findMod26OfMatrix(multiplyMatrices(cipherTextMatrixArrayList, findMod26OfMatrix(invertedKeyMatrixArrayList))).get(firstCounter).get(secondCounter), 0));
-                }
-            }
-            plaintTextMatrixArrayList.add(plaintTextVectorArrayList);
-            plaintTextVectorArrayList = new ArrayList<>();
-        }
-
-        plainText = convertMatrixToTextString(plaintTextMatrixArrayList);
-        return plainText;
-    }
-
-    //................................................................................................................................................................................................
-    //Rounds Double Variables
-    private static double round(double variable, int index) {
-        if (index < 0) {
-            throw new IllegalArgumentException();
-        }
-        long factor = (long) Math.pow(10, index);
-        variable = variable * factor;
-        long tmp = Math.round(variable);
-        return (double) tmp / factor;
-    }
-
-    //................................................................................................................................................................................................
     //Inverts Square Matrix
-    private static double[][] invertMatrix(double[][] matrixArray) {
-        int matrixArrayListDimensions = matrixArray.length;
+    private static ArrayList<ArrayList<Double>> invertMatrix(ArrayList<ArrayList<Double>> matrixArrayList) {
+
+        double[][] matrixArray = new double[matrixArrayList.size()][matrixArrayList.size()];
+
+        for (int firstCounter = 0; firstCounter < matrixArrayList.size(); firstCounter = firstCounter + 1) {
+            for (int secondCounter = 0; secondCounter < matrixArrayList.size(); secondCounter = secondCounter + 1) {
+                matrixArray[firstCounter][secondCounter] = matrixArrayList.get(firstCounter).get(secondCounter);
+            }
+        }
+
+        int matrixArrayListDimensions = matrixArrayList.size();
         double[][] backwardSubstitutionsMatrix = new double[matrixArrayListDimensions][matrixArrayListDimensions];
         double[][] ratiosMatrix = new double[matrixArrayListDimensions][matrixArrayListDimensions];
         int[] indexOfMatrix = new int[matrixArrayListDimensions];
@@ -257,7 +180,31 @@ public class Main {
                 backwardSubstitutionsMatrix[secondCounter][firstCounter] /= matrixArray[indexOfMatrix[secondCounter]][secondCounter];
             }
         }
-        return backwardSubstitutionsMatrix;
+
+        ArrayList<ArrayList<Double>> invertedMatrixArrayList = new ArrayList<>();
+        ArrayList<Double> invertedVectorArrayList = new ArrayList<>();
+
+        for (int firstCounter = 0; firstCounter < backwardSubstitutionsMatrix.length; firstCounter = firstCounter + 1) {
+            for (int secondCounter = 0; secondCounter < backwardSubstitutionsMatrix.length; secondCounter = secondCounter + 1) {
+                invertedVectorArrayList.add(round(backwardSubstitutionsMatrix[firstCounter][secondCounter], 5));
+            }
+            invertedMatrixArrayList.add(invertedVectorArrayList);
+            invertedVectorArrayList = new ArrayList<>();
+        }
+
+        return invertedMatrixArrayList;
+    }
+
+    //................................................................................................................................................................................................
+    //Rounds Double Variables
+    private static double round(double variable, int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException();
+        }
+        long factor = (long) Math.pow(10, index);
+        variable = variable * factor;
+        long tmp = Math.round(variable);
+        return (double) tmp / factor;
     }
 
     //................................................................................................................................................................................................
@@ -304,5 +251,20 @@ public class Main {
                 }
             }
         }
+    }
+
+    //................................................................................................................................................................................................
+    //FindMod26Matrix Method Starts, Finds All Mod 26 of All Elements of Matrix
+    private static ArrayList<ArrayList<Double>> findMod26OfMatrix(ArrayList<ArrayList<Double>> matrixArrayList) {
+        for (int firstCounter = 0; firstCounter < matrixArrayList.size(); firstCounter = firstCounter + 1) {
+            for (int secondCounter = 0; secondCounter < matrixArrayList.get(firstCounter).size(); secondCounter = secondCounter + 1) {
+                if (matrixArrayList.get(firstCounter).get(secondCounter) % 26 < 0) {
+                    matrixArrayList.get(firstCounter).set(secondCounter, matrixArrayList.get(firstCounter).get(secondCounter) % 26 + 26);
+                } else {
+                    matrixArrayList.get(firstCounter).set(secondCounter, matrixArrayList.get(firstCounter).get(secondCounter) % 26);
+                }
+            }
+        }
+        return matrixArrayList;
     }
 }
