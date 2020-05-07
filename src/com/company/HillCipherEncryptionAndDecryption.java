@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-class hillCipherEncryptionAndDecryption {
+class HillCipherEncryptionAndDecryption {
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
     //................................................................................................................................................................................................

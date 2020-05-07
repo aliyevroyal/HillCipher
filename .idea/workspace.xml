@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e9e9adb-156f-49be-9e97-56b7334110e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/hillCipherCryptanalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/hillCipher/com/company/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/hillCipherEncryptionAndDecryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/hillCipherCryptanalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/HillCipherCryptanalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/hillCipherEncryptionAndDecryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/HillCipherEncryptionAndDecryption.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +37,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Srlxk3aNujBhtAkiwDQq0DIIv7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -53,21 +57,9 @@
       <recent name="com.company" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.hillCipherEncryptionAndDecryption">
-    <configuration name="hillCipherCryptanalysis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.hillCipherCryptanalysis" />
+  <component name="RunManager" selected="Application.HillCipherEncryptionAndDecryption">
+    <configuration name="HillCipherCryptanalysis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.HillCipherCryptanalysis" />
       <module name="hillCipher" />
       <extension name="coverage">
         <pattern>
@@ -79,8 +71,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="hillCipherEncryptionAndDecryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.hillCipherEncryptionAndDecryption" />
+    <configuration name="HillCipherEncryptionAndDecryption" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.HillCipherEncryptionAndDecryption" />
       <module name="hillCipher" />
       <extension name="coverage">
         <pattern>
@@ -94,8 +86,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.hillCipherEncryptionAndDecryption" />
-        <item itemvalue="Application.hillCipherCryptanalysis" />
+        <item itemvalue="Application.HillCipherEncryptionAndDecryption" />
+        <item itemvalue="Application.HillCipherCryptanalysis" />
       </list>
     </recent_temporary>
   </component>
@@ -127,6 +119,7 @@
       <workItem from="1572706498240" duration="148000" />
       <workItem from="1572706679933" duration="96000" />
       <workItem from="1572706847695" duration="13000" />
+      <workItem from="1588888854569" duration="184000" />
     </task>
     <servers />
   </component>
@@ -145,5 +138,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588889022139">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1588889022139" />
+    <state x="572" y="357" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1588888891870">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="572" y="357" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900@0.0.1440.900" timestamp="1588888891870" />
   </component>
 </project>
